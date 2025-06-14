@@ -21,7 +21,7 @@ Everything happens in a single notebook / script:
 #### ▶︎ Option A — clone the repo (preferred, keeps everything in sync)
 ```
 !git clone https://github.com/BryenInsights/gemma-medical-finetuning
-%cd gemma-mts-dialog
+%cd gemma-medical-finetuning
 ````
 
 #### ▶︎ Option B — manual upload (if you don’t want to clone)
