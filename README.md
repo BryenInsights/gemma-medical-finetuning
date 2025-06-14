@@ -62,3 +62,11 @@ for real-world medical use without additional safety checks.
 * Google AI for releasing **Gemma-3** and the official LoRA tutorial.
 * Original MTS-Dialog creators for the dataset.
 * This repo authored & cleaned-up by **@BryenInsights** (June 2025).
+
+## 📚 References
+
+- 📘 Official LoRA fine-tuning guide for Gemma by Google:  
+  [https://ai.google.dev/gemma/docs/core/lora_tuning](https://ai.google.dev/gemma/docs/core/lora_tuning)
+
+- 🧾 MTS-Dialog dataset repository (Ben Abacha et al., 2023):  
+  [https://github.com/abachaa/MTS-Dialog](https://github.com/abachaa/MTS-Dialog)
