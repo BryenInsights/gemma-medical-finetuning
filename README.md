@@ -4,17 +4,16 @@ An end-to-end, reproducible workflow that trains a 1 B-parameter Gemma model to
 turn raw doctor-patient conversations into concise clinical notes.  
 Everything happens in a single notebook / script:
 
-* **LoRA rank 8**, **3 epochs** – fits on a single ≈8 GB T4.:contentReference[oaicite:0]{index=0}  
-* **Mixed-precision (`bfloat16`)** for extra memory headroom.:contentReference[oaicite:1]{index=1}  
+* **LoRA rank 16**, **3 epochs** – fits on a single ≈16 GB T4.
+* **Mixed-precision (`bfloat16`)** for extra memory headroom. 
 * **EarlyStopping on `val_loss`** to avoid over-training.  
-* Post-training **ROUGE evaluation** and a small **Playground** widget for manual
-  testing.:contentReference[oaicite:2]{index=2}
+* Post-training **ROUGE evaluation** and a small **Playground** for manual testing.
 
 ---
 
 ## 🏁 Quick start (Colab)
 	1.	Open the notebook in Colab (File ▸ Open Notebook ▸ “Upload” and choose gemma_medical_finetuning.ipynb).
-	2.	Set the runtime to GPU (Runtime ▸ Change runtime type ▸ GPU). A T4 or better (≈ 8 GB VRAM) is enough.
+	2.	Set the runtime to GPU (Runtime ▸ Change runtime type ▸ GPU). A T4 or better (≈ 16 GB VRAM) is enough.
 	3.	Install dependencies – simply run the first code cell:
 
 !pip install -q -U tensorflow keras keras-nlp keras-hub rouge_score scipy tqdm ipywidgets
@@ -33,7 +32,7 @@ files.upload()   # then pick utils.py from your computer
 The notebook expects utils.py to be in the current working directory; either option is fine.
 
 	5.	Run all cells. The notebook pulls the MTS-Dialog CSVs automatically and starts training.
-After ≈ 45 min a file named lora_rank8.weights.lora.h5 will appear — that’s your LoRA adapter, ready for inference.
+After ≈ 45 min a file named lora_rank_16.weights.lora.h5 will appear — that’s your LoRA adapter, ready for inference.
 
 ---
 
@@ -51,24 +50,13 @@ Running it locally is untested and may require manual tweaks (CUDA setup, memory
 | `gemma_medical_finetuning.py`       | Full training / evaluation / demo pipeline             |
 | `utils.py`                          | Main functions used in the notebook                    |
 | `lora_rank16.weights.lora.h5`       | LoRA adapter weights (created after training)          |
-| `requirements.txt`                  | Exact Python packages & versions                       |
-| `example_playground.ipynb`          | Minimal inference notebook (load adapters & summarise) |
-
----
-
-## 💡 Memory & stability tips
-
-* If the GPU crashes at **epoch 2**, disable `restore_best_weights` in the
-  `EarlyStopping` callback or cap validation examples to `≤ 1024` tokens before
-  calling `model.fit()`.
-* Keep **batch\_size = 2** and use **Top-K = 5** sampling for deterministic eval
-  runs.
+| `requirements.txt`                  | Exact Python packages & versions (if running locally)  |
 
 ---
 
 ## 📜 Dataset licence
 
-*MTS-Dialog* © 2024 – MIT-licensed (see `LICENSE-DATA`).
+*MTS-Dialog* © 2023 – released under **CC BY 4.0** (see `LICENSE-DATA`)
 Generated clinical notes are purely **research output**; they are **not** meant
 for real-world medical use without additional safety checks.
 
@@ -78,4 +66,4 @@ for real-world medical use without additional safety checks.
 
 * Google AI for releasing **Gemma-3** and the official LoRA tutorial.
 * Original MTS-Dialog creators for the dataset.
-* This repo authored & cleaned-up by **@your-handle** (May 2025).
+* This repo authored & cleaned-up by **@BryenInsights** (June 2025).
