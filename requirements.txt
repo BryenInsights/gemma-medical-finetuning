@@ -1,0 +1,11 @@
+tensorflow>=2.15.0
+keras>=3.0.0
+keras-nlp>=0.6.0
+keras-hub>=0.2.0
+numpy
+pandas
+scipy
+rouge_score
+tqdm
+ipywidgets
+matplotlib
