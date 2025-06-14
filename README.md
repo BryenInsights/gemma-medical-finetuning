@@ -13,28 +13,34 @@ Everything happens in a single notebook / script:
 ---
 
 ## 🏁 Quick start (Colab)
+	1.	Open the notebook in Colab (File ▸ Open Notebook ▸ “Upload” and choose gemma_medical_finetuning.ipynb).
+	2.	Set the runtime to GPU (Runtime ▸ Change runtime type ▸ GPU). A T4 or better (≈ 8 GB VRAM) is enough.
+	3.	Install dependencies – simply run the first code cell:
 
-1. Open the Colab link (or upload the notebook).  
-2. Run **`pip install -q -U keras-hub keras keras-nlp rouge_score scipy tqdm ipywidgets`**.:contentReference[oaicite:3]{index=3}  
-3. Upload `MTS-Dialog-TrainingSet.csv` (and optionally
-   `MTS-Dialog-ValidationSet.csv`) to `/content/`.:contentReference[oaicite:4]{index=4}  
-4. **Run all**. After ±45 min on a T4 you’ll have `lora_rank8.weights.lora.h5`
-   ready for inference.:contentReference[oaicite:5]{index=5}
+!pip install -q -U tensorflow keras keras-nlp keras-hub rouge_score scipy tqdm ipywidgets
+
+
+	4.	Load utils.py into Colab (needed by the notebook):
+
+### ▶︎ Option A — clone the repo (preferred, keeps everything in sync)
+!git clone https://github.com/your-handle/gemma-mts-dialog.git
+%cd gemma-mts-dialog
+
+### ▶︎ Option B — manual upload (if you don’t want to clone)
+from google.colab import files
+files.upload()   # then pick utils.py from your computer
+
+The notebook expects utils.py to be in the current working directory; either option is fine.
+
+	5.	Run all cells. The notebook pulls the MTS-Dialog CSVs automatically and starts training.
+After ≈ 45 min a file named lora_rank8.weights.lora.h5 will appear — that’s your LoRA adapter, ready for inference.
 
 ---
 
-## 🚀 Running locally
+## ⚠️ Local execution
 
-```bash
-git clone
-cd gemma-mts-dialog
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-python finetune_gemma_medical_dataset.py
-````
-
-> **GPU:** any 10 GB+ CUDA card is fine; with a T4/RTX A2000 use the
-> provided `mixed_bfloat16` policy.
+This tutorial is written and tested for Google Colab.
+Running it locally is untested and may require manual tweaks (CUDA setup, memory tweaks, custom dataset paths). If you do attempt it, please treat the process as experimental.
 
 ---
 
@@ -42,8 +48,9 @@ python finetune_gemma_medical_dataset.py
 
 | File                                | Purpose                                                |
 | ----------------------------------- | ------------------------------------------------------ |
-| `finetune_gemma_medical_dataset.py` | Full training / evaluation / demo pipeline             |
-| `lora_rank8.weights.lora.h5`        | LoRA adapter weights (created after training)          |
+| `gemma_medical_finetuning.py`       | Full training / evaluation / demo pipeline             |
+| `utils.py`                          | Main functions used in the notebook                    |
+| `lora_rank16.weights.lora.h5`       | LoRA adapter weights (created after training)          |
 | `requirements.txt`                  | Exact Python packages & versions                       |
 | `example_playground.ipynb`          | Minimal inference notebook (load adapters & summarise) |
 
