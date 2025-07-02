@@ -168,7 +168,7 @@ def evaluate_model(model, prompts, references, model_name="model"):
         )
 
     for pred, ref in zip(outputs, references):
-      rouge = scorer.score(ref, pred)     # ✅ reference first, prediction second
+      rouge = scorer.score(ref, pred)
       for k in scores:
           scores[k].append(rouge[k].fmeasure)
 
